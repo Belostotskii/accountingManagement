@@ -1,7 +1,7 @@
 package telran.security.accounting.management;
 
 import telran.security.dto.AccountDto;
-import telran.security.util.ResponseCode;
+import telran.security.dto.ResponseCode;
 
 public interface IAccountingManagement {
 

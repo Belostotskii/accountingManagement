@@ -1,4 +1,4 @@
-package telran.security.util;
+package telran.security.dto;
 
 public enum ResponseCode {
 

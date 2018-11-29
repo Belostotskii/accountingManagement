@@ -9,13 +9,15 @@ import org.springframework.stereotype.Service;
 import telran.security.accounting.mongo.Account;
 import telran.security.dto.AccountDto;
 import telran.security.repo.AccountManagementMongoRepository;
-import telran.security.util.ResponseCode;
+import telran.security.dto.ResponseCode;
 
 import static telran.security.util.Flag.*;
 
 
 @Service
 public class AccountingManagementMongo implements IAccountingManagement {
+
+	private static final int LENGTH = 8;
 
 	@Autowired
 	AccountManagementMongoRepository accountsRepository;
@@ -36,7 +38,7 @@ public class AccountingManagementMongo implements IAccountingManagement {
 	}
 
 	private boolean isPasswordCorrect(String password) {
-		if(password.length() < 8)
+		if(password.length() < LENGTH)
 			return false;
 		int flagsNumber = 0;
 		String str = "!@$%^&*()_+-#~";

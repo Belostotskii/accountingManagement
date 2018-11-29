@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import telran.security.accounting.management.IAccountingManagement;
 import telran.security.dto.AccountDto;
-import telran.security.util.ResponseCode;
+import telran.security.dto.ResponseCode;
 import static telran.security.dto.AccountingManagementConstants.*;
 
 @RestController
