@@ -21,7 +21,7 @@ public class AccountingManagementMongo implements IAccountingManagement {
 	AccountManagementMongoRepository accountsRepository;
 	
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	PasswordEncoder passwordEncoder;
 	
 	@Override
 	public ResponseCode addAccount(AccountDto account) {
@@ -98,7 +98,7 @@ public class AccountingManagementMongo implements IAccountingManagement {
 			return ResponseCode.NO_USERNAME;
 		if(!isPasswordCorrect(password))
 			return ResponseCode.PASSWORD_INCORRECT;
-		Account account = accountsRepository.findById(username).orElse(null);
+		Account account = accountsRepository.findById(username).get();
 		if(passwordEncoder.matches(password, account.getPassword_hash()))
 			return ResponseCode.PASSWORD_SHOULD_NOT_REPEAT_PREVIOUS_3_PASSWORDS;
 		for(String hash: account.getLast_password_hashes()) {
@@ -121,7 +121,7 @@ public class AccountingManagementMongo implements IAccountingManagement {
 	public ResponseCode revokeAccount(String username) {
 		if(!accountsRepository.existsById(username))
 			return ResponseCode.NO_USERNAME;
-		Account account = accountsRepository.findById(username).orElse(null);
+		Account account = accountsRepository.findById(username).get();
 		if(account != null && account.isRevoked() == false) {
 			account.setRevoked(true);
 			accountsRepository.save(account);
@@ -134,7 +134,7 @@ public class AccountingManagementMongo implements IAccountingManagement {
 	public ResponseCode activateAccount(String username) {
 		if(!accountsRepository.existsById(username))
 			return ResponseCode.NO_USERNAME;
-		Account account = accountsRepository.findById(username).orElse(null);
+		Account account = accountsRepository.findById(username).get();
 		if(account != null && account.isRevoked() == true) {
 			account.setRevoked(false);
 			account.setActivationDate(LocalDate.now());
