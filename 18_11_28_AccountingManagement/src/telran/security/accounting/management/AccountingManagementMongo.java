@@ -73,7 +73,7 @@ public class AccountingManagementMongo implements IAccountingManagement {
 	public ResponseCode addRole(String username, String role) {
 		if(!accountsRepository.existsById(username))
 			return ResponseCode.NO_USERNAME;
-		Account account = accountsRepository.findById(username).orElse(null);
+		Account account = accountsRepository.findById(username).get();
 		if(account != null && account.getRoles().add(role)) {
 			accountsRepository.save(account);
 			return ResponseCode.OK;
@@ -86,7 +86,7 @@ public class AccountingManagementMongo implements IAccountingManagement {
 	public ResponseCode removeRole(String username, String role) {
 		if(!accountsRepository.existsById(username))
 			return ResponseCode.NO_USERNAME;
-		Account account = accountsRepository.findById(username).orElse(null);
+		Account account = accountsRepository.findById(username).get();
 		if(account != null && account.getRoles().remove(role)) {
 			accountsRepository.save(account);
 			return ResponseCode.OK;
